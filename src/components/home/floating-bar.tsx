@@ -32,14 +32,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 20,
+    bottom: 0,
     left: 0,
     right: 0,
+    backgroundColor: 'red',
+    marginHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 30,
   },
   button: {
     padding: 10,
     backgroundColor: '#007AFF',
-    borderRadius: 20,
+    borderRadius: 30,
   },
 })
 

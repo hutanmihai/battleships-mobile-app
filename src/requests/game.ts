@@ -36,12 +36,12 @@ export const useCreateGame = () => {
   })
 }
 
-const getGame = async (id: number) => {
+const getGame = async (id: string) => {
   const response = await axiosInstance.get(apiConfig.game.get(id))
   return response.data as TGame
 }
 
-export const useGetGame = (id: number) => {
+export const useGetGame = (id: string) => {
   return useQuery(['getGame', id], () => getGame(id), {
     onSuccess: (data) => {
       console.log(data)
@@ -52,11 +52,11 @@ export const useGetGame = (id: number) => {
   })
 }
 
-const joinGame = async (id: number) => {
+const joinGame = async (id: string) => {
   await axiosInstance.post(apiConfig.game.join(id))
 }
 
-export const useJoinGame = (id: number) => {
+export const useJoinGame = (id: string) => {
   return useQuery(['joinGame', id], () => joinGame(id), {
     onSuccess: () => {
       console.log('Joined game successfully')
@@ -68,11 +68,11 @@ export const useJoinGame = (id: number) => {
   })
 }
 
-const sendMap = async (id: number, payload: TShip[]) => {
+const sendMap = async (id: string, payload: TShip[]) => {
   await axiosInstance.patch(apiConfig.game.sendMap(id), payload)
 }
 
-export const useSendMap = (id: number) => {
+export const useSendMap = (id: string) => {
   return useMutation(['sendMap', id], (payload: TShip[]) => sendMap(id, payload), {
     onSuccess: () => {
       console.log('Map sent successfully')
@@ -83,11 +83,11 @@ export const useSendMap = (id: number) => {
   })
 }
 
-const strike = async (id: number, payload: TStrike) => {
+const strike = async (id: string, payload: TStrike) => {
   await axiosInstance.patch(apiConfig.game.strike(id), payload)
 }
 
-export const useStrike = (id: number) => {
+export const useStrike = (id: string) => {
   return useMutation(['strike', id], (payload: TStrike) => strike(id, payload), {
     onSuccess: () => {
       console.log('Strike sent successfully')

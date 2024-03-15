@@ -1,7 +1,9 @@
 import { useRouter } from 'expo-router'
-import { Text, View } from 'react-native'
+import { SafeAreaView, Text, View } from 'react-native'
 
 import FloatingBar from '@/components/home/floating-bar'
+import GamesList from '@/components/home/games-list'
+import Header from '@/components/home/header'
 import { useAuth } from '@/context/auth'
 
 function HomeScreen() {
@@ -9,20 +11,30 @@ function HomeScreen() {
   const router = useRouter()
 
   return (
-    <View
-      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}
-    >
-      <Text>Home Screen</Text>
-      <FloatingBar
-        onHomePress={() => {
-          router.push('/')
-        }}
-        onProfilePress={() => {
-          router.push('/profile')
-        }}
-        onLogoutPress={logout}
-      />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}
+        >
+          <Header />
+          <GamesList />
+          <FloatingBar
+            onHomePress={() => {
+              router.push('/')
+            }}
+            onProfilePress={() => {
+              router.push('/profile')
+            }}
+            onLogoutPress={logout}
+          />
+        </View>
+      </View>
+    </SafeAreaView>
   )
 }
 

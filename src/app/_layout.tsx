@@ -1,4 +1,6 @@
 import { Slot } from 'expo-router'
+import React from 'react'
+import { SafeAreaView, View } from 'react-native'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { AuthProvider } from '@/context/auth'

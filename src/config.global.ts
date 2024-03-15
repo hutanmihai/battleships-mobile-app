@@ -11,9 +11,9 @@ export const apiConfig = {
   game: {
     list: `${BACKEND_URL}/game`,
     create: `${BACKEND_URL}/game`,
-    get: (id: number) => `${BACKEND_URL}/game/${id}`,
-    join: (id: number) => `${BACKEND_URL}/game/join/${id}`,
-    strike: (id: number) => `${BACKEND_URL}/game/${id}/strike`,
-    sendMap: (id: number) => `${BACKEND_URL}/game/${id}`,
+    get: (id: string) => `${BACKEND_URL}/game/${id}`,
+    join: (id: string) => `${BACKEND_URL}/game/join/${id}`,
+    strike: (id: string) => `${BACKEND_URL}/game/${id}/strike`,
+    sendMap: (id: string) => `${BACKEND_URL}/game/${id}`,
   },
 }

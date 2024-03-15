@@ -1,3 +1,5 @@
+import { TUser } from '@/types/user'
+
 export enum EGameAxis {
   X = 'x',
   Y = 'y',
@@ -21,13 +23,20 @@ export enum EShipPosition {
 }
 
 export type TGame = {
+  id: string
   status: EGameStatus
-  playerToMove: number | null
+  playerToMoveId: string | null
   moves: TMove[]
+  // TODO: Fix this type
+  shipsCoord: TShip[]
+  player1: TUser
+  player2: TUser | null
+  player1Id: string
+  player2Id: string | null
 }
 
 export type TMove = {
-  playerId: number
+  playerId: string
   result: boolean
   x: string
   y: number
@@ -47,5 +56,13 @@ export type TShip = {
 
 export type TGamesListResponse = {
   total: number
-  games: TGame[]
+  games: {
+    id: string
+    status: EGameStatus
+    playerToMoveId: string | null
+    player1: TUser
+    player2: TUser | null
+    player1Id: string
+    player2Id: string | null
+  }[]
 }
