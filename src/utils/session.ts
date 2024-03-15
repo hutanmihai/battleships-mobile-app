@@ -1,6 +1,6 @@
 import * as SecureStore from 'expo-secure-store'
 
-import { TTokens } from '@/requests/types/auth'
+import { TTokens } from '@/types/auth'
 
 export const storeTokens = async (tokens: TTokens) => {
   try {

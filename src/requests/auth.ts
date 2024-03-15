@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
 
 import { apiConfig } from '@/config.global'
-import { TLoginRequest, TRegisterRequest, TTokens } from '@/requests/types/auth'
+import { TLoginRequest, TRegisterRequest, TTokens } from '@/types/auth'
 import axiosInstance from '@/utils/axios'
 import { storeTokens } from '@/utils/session'
 

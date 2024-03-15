@@ -2,9 +2,9 @@ import { useRouter, useSegments } from 'expo-router' // Adjust path as necessary
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 
 import { useLogin, useRegister } from '@/requests/auth'
-import { TLoginRequest, TRegisterRequest } from '@/requests/types/auth'
-import { TUser } from '@/requests/types/user'
 import { useMe } from '@/requests/user'
+import { TLoginRequest, TRegisterRequest } from '@/types/auth'
+import { TUser } from '@/types/user'
 import { deleteTokens } from '@/utils/session'
 
 type AuthContextType = {

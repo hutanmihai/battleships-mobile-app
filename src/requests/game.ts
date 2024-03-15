@@ -1,9 +1,7 @@
-import {useMutation, useQuery} from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 
-import {apiConfig} from '@/config.global'
-import {
-  TGamesListResponse, TShip, TStrike, TGame
-} from '@/requests/types/game'
+import { apiConfig } from '@/config.global'
+import { TGamesListResponse, TShip, TStrike, TGame } from '@/types/game'
 import axiosInstance from '@/utils/axios'
 
 const listGames = async () => {

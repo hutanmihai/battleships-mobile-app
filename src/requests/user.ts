@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 
 import { apiConfig } from '@/config.global'
-import { TMeResponse } from '@/requests/types/user'
+import { TMeResponse } from '@/types/user'
 import axiosInstance from '@/utils/axios'
 
 const me = async () => {
