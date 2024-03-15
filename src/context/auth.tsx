@@ -1,4 +1,4 @@
-import { useRouter, useSegments } from 'expo-router' // Adjust path as necessary
+import { useRouter, useSegments } from 'expo-router'
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 
 import { useLogin, useRegister } from '@/requests/auth'
