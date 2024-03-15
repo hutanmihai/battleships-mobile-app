@@ -1,12 +1,8 @@
-import { useMutation, useQuery } from 'react-query'
+import {useMutation, useQuery} from 'react-query'
 
-import { apiConfig } from '@/config.global'
+import {apiConfig} from '@/config.global'
 import {
-  TGameCreateResponse,
-  TGameGetResponse,
-  TGameSetMapRequest,
-  TGamesListResponse,
-  TGameStrikeRequest,
+  TGamesListResponse, TShip, TStrike, TGame
 } from '@/requests/types/game'
 import axiosInstance from '@/utils/axios'
 
@@ -28,7 +24,7 @@ export const useListGames = () => {
 
 const createGame = async () => {
   const response = await axiosInstance.post(apiConfig.game.create)
-  return response.data as TGameCreateResponse
+  return response.data as TGame
 }
 
 export const useCreateGame = () => {
@@ -44,7 +40,7 @@ export const useCreateGame = () => {
 
 const getGame = async (id: number) => {
   const response = await axiosInstance.get(apiConfig.game.get(id))
-  return response.data as TGameGetResponse
+  return response.data as TGame
 }
 
 export const useGetGame = (id: number) => {
@@ -74,12 +70,12 @@ export const useJoinGame = (id: number) => {
   })
 }
 
-const sendMap = async (id: number, payload: TGameSetMapRequest) => {
+const sendMap = async (id: number, payload: TShip[]) => {
   await axiosInstance.patch(apiConfig.game.sendMap(id), payload)
 }
 
 export const useSendMap = (id: number) => {
-  return useMutation(['sendMap', id], (payload: TGameSetMapRequest) => sendMap(id, payload), {
+  return useMutation(['sendMap', id], (payload: TShip[]) => sendMap(id, payload), {
     onSuccess: () => {
       console.log('Map sent successfully')
     },
@@ -89,12 +85,12 @@ export const useSendMap = (id: number) => {
   })
 }
 
-const strike = async (id: number, payload: TGameStrikeRequest) => {
+const strike = async (id: number, payload: TStrike) => {
   await axiosInstance.patch(apiConfig.game.strike(id), payload)
 }
 
 export const useStrike = (id: number) => {
-  return useMutation(['strike', id], (payload: TGameStrikeRequest) => strike(id, payload), {
+  return useMutation(['strike', id], (payload: TStrike) => strike(id, payload), {
     onSuccess: () => {
       console.log('Strike sent successfully')
     },

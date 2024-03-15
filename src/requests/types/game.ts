@@ -49,11 +49,3 @@ export type TGamesListResponse = {
   total: number
   games: TGame[]
 }
-
-export type TGameSetMapRequest = {
-  ships: TShip[]
-}
-
-export type TGameCreateResponse = TGame
-export type TGameGetResponse = TGame
-export type TGameStrikeRequest = TStrike

@@ -1,6 +1,6 @@
 import * as SecureStore from 'expo-secure-store'
 
-import { TUser } from '@/requests/types/user'
+import {TUser} from '@/requests/types/user'
 
 export const storeUser = async (user: TUser) => {
   try {
@@ -16,7 +16,7 @@ export const getUser = async () => {
     const user = await SecureStore.getItemAsync('user')
     if (user) {
       console.log('User retrieved:', user)
-      return JSON.parse(user)
+      return JSON.parse(user) as TUser
     } else {
       console.log('No user found')
       return null

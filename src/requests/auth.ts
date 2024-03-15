@@ -1,18 +1,17 @@
-import { useMutation } from 'react-query'
+import {useMutation} from 'react-query'
 
-import { apiConfig } from '@/config.global'
+import {apiConfig} from '@/config.global'
 import {
   TLoginRequest,
-  TLoginResponse,
   TRegisterRequest,
-  TRegisterResponse,
 } from '@/requests/types/auth'
 import axiosInstance from '@/utils/axios'
-import { storeUser } from '@/utils/session'
+import {storeUser} from '@/utils/session'
+import {TUser} from "@/requests/types/user";
 
 const login = async (payload: TLoginRequest) => {
   const response = await axiosInstance.post(apiConfig.auth.login, payload)
-  return response.data as TLoginResponse
+  return response.data as TUser
 }
 
 export const useLogin = () => {
@@ -28,7 +27,7 @@ export const useLogin = () => {
 
 const register = async (payload: TRegisterRequest) => {
   const response = await axiosInstance.post(apiConfig.auth.register, payload)
-  return response.data as TRegisterResponse
+  return response.data as TUser
 }
 
 export const useRegister = () => {
