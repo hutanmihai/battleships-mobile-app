@@ -1,16 +1,12 @@
 import { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 
-import { useRegister } from '@/requests/auth'
+import { useAuth } from '@/context/auth'
 
 function RegisterScreen() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const { mutate: register, isLoading } = useRegister()
-
-  const handleRegister = () => {
-    register({ email, password })
-  }
+  const { register, isLoading } = useAuth()
 
   return (
     <View style={styles.container}>
@@ -25,8 +21,8 @@ function RegisterScreen() {
       <Text style={styles.label}>Password:</Text>
       <TextInput style={styles.input} value={password} onChangeText={setPassword} secureTextEntry />
       <Button
-        title={isLoading ? 'Creating account...' : 'Register'}
-        onPress={handleRegister}
+        title={isLoading ? 'Registering in...' : 'Register'}
+        onPress={() => register({ email, password })}
         disabled={isLoading}
       />
     </View>

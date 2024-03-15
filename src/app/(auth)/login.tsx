@@ -2,25 +2,11 @@ import { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 
 import { useAuth } from '@/context/auth'
-import { useLogin } from '@/requests/auth'
 
 function LoginScreen() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const { mutate: mutationLogin, data: tokens, isLoading, isSuccess, isError } = useLogin()
-  const { login } = useAuth()
-
-  const handleLogin = async () => {
-    mutationLogin({ email, password })
-
-    if (isSuccess && tokens) {
-      await login(tokens)
-    }
-
-    if (isError) {
-      console.error('Error logging in')
-    }
-  }
+  const { login, isLoading } = useAuth()
 
   return (
     <View style={styles.container}>
@@ -36,7 +22,7 @@ function LoginScreen() {
       <TextInput style={styles.input} value={password} onChangeText={setPassword} secureTextEntry />
       <Button
         title={isLoading ? 'Logging in...' : 'Login'}
-        onPress={handleLogin}
+        onPress={() => login({ email, password })}
         disabled={isLoading}
       />
     </View>

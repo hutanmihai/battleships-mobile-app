@@ -1,19 +1,18 @@
 import { useQuery } from 'react-query'
 
 import { apiConfig } from '@/config.global'
-import { TUser } from '@/requests/types/user'
+import { TMeResponse } from '@/requests/types/user'
 import axiosInstance from '@/utils/axios'
 
 const me = async () => {
-  console.log('ME')
-  const response = await axiosInstance.post(apiConfig.user.me)
-  return response.data as TUser
+  const response = await axiosInstance.get(apiConfig.user.me)
+  return response.data as TMeResponse
 }
 
 export const useMe = () => {
   return useQuery('me', () => me(), {
     onSuccess: (data) => {
-      console.log('USER', data)
+      console.log('ME', data)
     },
     onError: (error) => {
       console.error(error)
