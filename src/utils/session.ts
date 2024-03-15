@@ -1,37 +1,37 @@
 import * as SecureStore from 'expo-secure-store'
 
-import {TUser} from '@/requests/types/user'
+import { TTokens } from '@/requests/types/auth'
 
-export const storeUser = async (user: TUser) => {
+export const storeTokens = async (tokens: TTokens) => {
   try {
-    await SecureStore.setItemAsync('user', JSON.stringify(user))
-    console.log('User stored successfully')
+    await SecureStore.setItemAsync('accessToken', tokens.accessToken)
+    await SecureStore.setItemAsync('refreshToken', tokens.refreshToken)
   } catch (error) {
-    console.error('Error storing user:', error)
+    console.error('Error storing tokens:', error)
   }
 }
 
-export const getUser = async () => {
+export const getAccessToken = async () => {
   try {
-    const user = await SecureStore.getItemAsync('user')
-    if (user) {
-      console.log('User retrieved:', user)
-      return JSON.parse(user) as TUser
-    } else {
-      console.log('No user found')
-      return null
-    }
+    return await SecureStore.getItemAsync('accessToken')
   } catch (error) {
-    console.error('Error retrieving user:', error)
-    return null
+    console.error('Error getting access token:', error)
   }
 }
 
-export const deleteUser = async () => {
+export const getRefreshToken = async () => {
   try {
-    await SecureStore.deleteItemAsync('user')
-    console.log('User deleted successfully')
+    return await SecureStore.getItemAsync('refreshToken')
   } catch (error) {
-    console.error('Error deleting user:', error)
+    console.error('Error getting refresh token:', error)
+  }
+}
+
+export const deleteTokens = async () => {
+  try {
+    await SecureStore.deleteItemAsync('accessToken')
+    await SecureStore.deleteItemAsync('refreshToken')
+  } catch (error) {
+    console.error('Error deleting tokens:', error)
   }
 }

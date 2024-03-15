@@ -1,23 +1,18 @@
-import {useMutation} from 'react-query'
+import { useMutation } from 'react-query'
 
-import {apiConfig} from '@/config.global'
-import {
-  TLoginRequest,
-  TRegisterRequest,
-} from '@/requests/types/auth'
+import { apiConfig } from '@/config.global'
+import { TLoginRequest, TRegisterRequest, TTokens } from '@/requests/types/auth'
 import axiosInstance from '@/utils/axios'
-import {storeUser} from '@/utils/session'
-import {TUser} from "@/requests/types/user";
 
 const login = async (payload: TLoginRequest) => {
   const response = await axiosInstance.post(apiConfig.auth.login, payload)
-  return response.data as TUser
+  return response.data as TTokens
 }
 
 export const useLogin = () => {
-  return useMutation('login', (payload: TLoginRequest) => login(payload), {
+  return useMutation('login', async (payload: TLoginRequest) => await login(payload), {
     onSuccess: (data) => {
-      storeUser(data)
+      console.log('USER TOKENS', data)
     },
     onError: (error) => {
       console.error(error)
@@ -27,14 +22,11 @@ export const useLogin = () => {
 
 const register = async (payload: TRegisterRequest) => {
   const response = await axiosInstance.post(apiConfig.auth.register, payload)
-  return response.data as TUser
+  return response.data as TTokens
 }
 
 export const useRegister = () => {
-  return useMutation('register', (payload: TRegisterRequest) => register(payload), {
-    onSuccess: (data) => {
-      storeUser(data)
-    },
+  return useMutation('register', async (payload: TRegisterRequest) => await register(payload), {
     onError: (error) => {
       console.error(error)
     },

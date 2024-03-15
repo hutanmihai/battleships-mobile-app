@@ -1,19 +1,15 @@
-import {Stack} from 'expo-router'
+import {Slot, Stack} from 'expo-router'
 import {QueryClient, QueryClientProvider} from 'react-query'
+import {AuthProvider} from "@/context/auth";
 
 const queryClient = new QueryClient()
 
 function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack>
-        <Stack.Screen name="index" options={{
-          headerTitle: 'Welcome to Battleships!',
-        }}/>
-        <Stack.Screen name="(auth)" options={{
-          headerTitle: 'Login!',
-        }}/>
-      </Stack>
+      <AuthProvider>
+        <Slot/>
+      </AuthProvider>
     </QueryClientProvider>
   )
 }
