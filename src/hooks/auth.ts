@@ -1,10 +1,12 @@
 import { AxiosError } from 'axios'
 import { router } from 'expo-router'
-import { useMutation } from 'react-query'
+import { useState } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
 
 import { login, register } from '@/requests/auth'
 import { me } from '@/requests/user'
 import { TLoginRequest, TRegisterRequest } from '@/types/auth'
+import { TUser } from '@/types/user'
 import { storeTokens } from '@/utils/session'
 import { showNotification } from '@/utils/toast'
 
@@ -13,14 +15,6 @@ export const useLogin = () => {
     onSuccess: async (data) => {
       await storeTokens(data)
       console.log('LOGIN', data)
-      try {
-        const { user } = await me()
-        console.log('ME', user)
-        return user
-      } catch (error) {
-        console.error('ME', error)
-        return null
-      }
     },
     onError: (error: AxiosError) => {
       console.error('LOGIN', error)

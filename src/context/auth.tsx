@@ -2,6 +2,7 @@ import { useRouter, useSegments } from 'expo-router'
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 
 import { useLogin, useRegister } from '@/hooks/auth'
+import { me } from '@/requests/user'
 import { TLoginRequest, TRegisterRequest } from '@/types/auth'
 import { TUser } from '@/types/user'
 import { deleteTokens } from '@/utils/session'
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const segment = useSegments()[0]
   const router = useRouter()
 
-  const { data: userData, mutate: loginMutation, isLoading: isLoginLoading } = useLogin()
+  const { mutate: loginMutation, isLoading: isLoginLoading } = useLogin()
   const { mutate: registerMutation, isLoading: isRegisterLoading } = useRegister()
 
   useEffect(() => {
@@ -35,19 +36,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [user, segment])
 
   useEffect(() => {
-    if (userData) {
-      // @ts-ignore
-      setUser(userData)
-    }
-  }, [userData])
-
-  useEffect(() => {
     setIsLoading(isLoginLoading || isRegisterLoading)
   }, [isLoginLoading, isRegisterLoading])
 
   const login = useCallback(
     async (payload: TLoginRequest) => {
-      loginMutation(payload)
+      loginMutation(payload, {
+        onSuccess: async () => {
+          const { user } = await me()
+          setUser(user)
+        },
+        onError: () => {
+          setUser(null)
+        },
+      })
     },
     [loginMutation]
   )

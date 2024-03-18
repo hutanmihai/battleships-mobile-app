@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 import { useMe } from '@/hooks/user'
 
 function MeScreen() {
-  const { data: me } = useMe(true)
+  const { data: me } = useMe()
 
   return (
     <View

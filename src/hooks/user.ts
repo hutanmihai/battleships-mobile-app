@@ -2,7 +2,7 @@ import { useQuery } from 'react-query'
 
 import { me } from '@/requests/user'
 
-export const useMe = (isEnabled: boolean) => {
+export const useMe = () => {
   return useQuery('me', () => me(), {
     onSuccess: (data) => {
       console.log('ME', data)
@@ -10,6 +10,5 @@ export const useMe = (isEnabled: boolean) => {
     onError: (error) => {
       console.error('ME', error)
     },
-    enabled: isEnabled,
   })
 }
