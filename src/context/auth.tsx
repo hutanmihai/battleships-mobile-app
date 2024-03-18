@@ -43,8 +43,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     async (payload: TLoginRequest) => {
       loginMutation(payload, {
         onSuccess: async () => {
-          const { user } = await me()
-          setUser(user)
+          try {
+            const { user } = await me()
+            setUser(user)
+          } catch (error) {
+            console.error('ME', error)
+            setUser(null)
+          }
         },
         onError: () => {
           setUser(null)
