@@ -8,7 +8,7 @@ export const useMe = () => {
       console.log('ME', data)
     },
     onError: (error) => {
-      console.error(error)
+      console.error('ME', error)
     },
     refetchOnWindowFocus: false,
     enabled: false, // disable this query from automatically running

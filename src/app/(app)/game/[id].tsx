@@ -1,12 +1,14 @@
 import { useLocalSearchParams } from 'expo-router'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 
-import { useGetGame } from '@/hooks/game'
+import { useGetGame, useJoinGame } from '@/hooks/game'
 
 function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()
   // @ts-ignore
   const { data: game, isLoading } = useGetGame(id)
+  // @ts-ignore
+  const { mutate: joinGame } = useJoinGame(id)
 
   if (isLoading) {
     return (
@@ -22,6 +24,7 @@ function GameScreen() {
       <Text>{game?.status}</Text>
       <Text>{game?.player1.email}</Text>
       <Text>{game?.player2?.email}</Text>
+      <Button title="Join game" onPress={() => joinGame()} />
     </View>
   )
 }

@@ -13,7 +13,7 @@ export const useLogin = () => {
       console.log('LOGIN', data)
     },
     onError: (error: AxiosError) => {
-      console.error(error)
+      console.error('LOGIN', error)
       showNotification(error.message)
     },
   })
@@ -25,7 +25,7 @@ export const useRegister = () => {
       console.log('REGISTER', data)
     },
     onError: (error: AxiosError) => {
-      console.error(error)
+      console.error('REGISTER', error)
       showNotification(error.message)
     },
   })
