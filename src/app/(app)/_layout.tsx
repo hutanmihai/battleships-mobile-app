@@ -3,8 +3,12 @@ import { Stack } from 'expo-router'
 function AppLayout() {
   return (
     <Stack>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="game/create" />
+      <Stack.Screen
+        name="user/me"
+        options={{
+          presentation: 'modal',
+        }}
+      />
     </Stack>
   )
 }

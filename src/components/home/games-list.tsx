@@ -8,13 +8,9 @@ import { EGameStatus } from '@/types/game'
 function GamesList() {
   const { data: games, isLoading } = useListGames()
 
-  useEffect(() => {
-    console.log('GAMES', games)
-  }, [games])
-
   const renderGameItem = ({ item: game }: { item: any }) =>
     game.status !== EGameStatus.FINISHED ? (
-      <Link href={`/game/list-${game.id}`} asChild>
+      <Link href={`/game/${game.id}`} asChild>
         <TouchableOpacity style={styles.gameItem}>
           <GameDetails game={game} />
         </TouchableOpacity>
@@ -39,6 +35,7 @@ function GamesList() {
       renderItem={renderGameItem}
       keyExtractor={(game) => game.id}
       contentContainerStyle={styles.listContainer}
+      showsVerticalScrollIndicator={false}
     />
   )
 }

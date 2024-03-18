@@ -28,7 +28,7 @@ function HomeScreen() {
               router.push('/')
             }}
             onProfilePress={() => {
-              router.push('/profile')
+              router.push('/user/me')
             }}
             onLogoutPress={logout}
           />
