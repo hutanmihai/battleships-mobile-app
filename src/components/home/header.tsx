@@ -1,11 +1,14 @@
+import { Link } from 'expo-router'
 import { View, StyleSheet, Pressable, Text } from 'react-native'
 
 function Header() {
   return (
     <View style={styles.headerContainer}>
-      <Pressable onPress={() => console.log('Create Game Pressed')}>
-        <Text style={styles.button}>Create Game</Text>
-      </Pressable>
+      <Link href="/game/create" asChild>
+        <Pressable>
+          <Text style={styles.button}>Create Game</Text>
+        </Pressable>
+      </Link>
       <Pressable onPress={() => console.log('Join Game Pressed')}>
         <Text style={styles.button}>Join Game</Text>
       </Pressable>

@@ -1,8 +1,8 @@
 import { useRouter, useSegments } from 'expo-router'
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 
-import { useLogin, useRegister } from '@/requests/auth'
-import { useMe } from '@/requests/user'
+import { useLogin, useRegister } from '@/hooks/auth'
+import { useMe } from '@/hooks/user'
 import { TLoginRequest, TRegisterRequest } from '@/types/auth'
 import { TUser } from '@/types/user'
 import { deleteTokens } from '@/utils/session'
@@ -54,6 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     async (payload: TRegisterRequest) => {
       setIsLoading(true)
       registerMutation(payload)
+      loginMutation(payload)
       const { data } = await refetchUser()
       if (data) {
         setUser(data.user)

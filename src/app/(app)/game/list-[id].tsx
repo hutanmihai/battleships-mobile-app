@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from 'expo-router'
 import { View, Text, StyleSheet } from 'react-native'
 
-import { useGetGame } from '@/requests/game'
+import { useGetGame } from '@/hooks/game'
 
 function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()

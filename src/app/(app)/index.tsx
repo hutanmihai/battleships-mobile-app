@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router'
-import { SafeAreaView, Text, View } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 
 import FloatingBar from '@/components/home/floating-bar'
 import GamesList from '@/components/home/games-list'

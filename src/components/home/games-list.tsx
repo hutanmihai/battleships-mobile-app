@@ -1,8 +1,8 @@
-import { Link, router } from 'expo-router'
+import { Link } from 'expo-router'
 import React, { useEffect } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 
-import { useListGames } from '@/requests/game'
+import { useListGames } from '@/hooks/game'
 import { EGameStatus } from '@/types/game'
 
 function GamesList() {
@@ -10,11 +10,11 @@ function GamesList() {
 
   useEffect(() => {
     console.log('GAMES', games)
-  }, [games]) // Ensure useEffect responds to changes in games
+  }, [games])
 
   const renderGameItem = ({ item: game }: { item: any }) =>
     game.status !== EGameStatus.FINISHED ? (
-      <Link href={`/game/${game.id}`} asChild>
+      <Link href={`/game/list-${game.id}`} asChild>
         <TouchableOpacity style={styles.gameItem}>
           <GameDetails game={game} />
         </TouchableOpacity>
