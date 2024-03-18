@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { mutate: loginMutation } = useLogin()
   const { mutate: registerMutation } = useRegister()
 
-  const { refetch: refetchUser } = useMe()
+  const { refetch: refetchUser } = useMe(false)
 
   useEffect(() => {
     if (!user && segment !== '(auth)') {

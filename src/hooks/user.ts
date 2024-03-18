@@ -2,7 +2,7 @@ import { useQuery } from 'react-query'
 
 import { me } from '@/requests/user'
 
-export const useMe = () => {
+export const useMe = (isEnabled: boolean) => {
   return useQuery('me', () => me(), {
     onSuccess: (data) => {
       console.log('ME', data)
@@ -10,7 +10,6 @@ export const useMe = () => {
     onError: (error) => {
       console.error('ME', error)
     },
-    refetchOnWindowFocus: false,
-    enabled: false, // disable this query from automatically running
+    enabled: isEnabled,
   })
 }
