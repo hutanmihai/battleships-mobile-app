@@ -5,7 +5,7 @@ import { useLogin, useRegister } from '@/hooks/auth'
 import { me } from '@/requests/user'
 import { TLoginRequest, TRegisterRequest } from '@/types/auth'
 import { TUser } from '@/types/user'
-import { deleteTokens } from '@/utils/session'
+import { deleteTokens, storeTokens } from '@/utils/session'
 
 type AuthContextType = {
   user: TUser | null
@@ -42,12 +42,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = useCallback(
     async (payload: TLoginRequest) => {
       loginMutation(payload, {
-        onSuccess: async () => {
+        onSuccess: async (tokens) => {
           try {
+            await storeTokens(tokens)
             const { user } = await me()
             setUser(user)
           } catch (error) {
             console.error('ME', error)
+            await deleteTokens()
             setUser(null)
           }
         },
@@ -61,7 +63,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const register = useCallback(
     async (payload: TRegisterRequest) => {
-      registerMutation(payload)
+      registerMutation(payload, {
+        onSuccess: async () => {
+          router.push('(auth)/login')
+        },
+      })
     },
     [registerMutation]
   )
