@@ -66,3 +66,7 @@ export type TGamesListResponse = {
     player2Id: string | null
   }[]
 }
+
+export type TBox = 'clear' | 'ship' | 'destroyed' | 'not-allowed'
+
+export type TShipSize = 's' | 'm' | 'l' | 'xl'

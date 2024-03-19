@@ -48,7 +48,7 @@ export const useJoinGame = (id: string) => {
 }
 
 export const useSendMap = (id: string) => {
-  return useMutation(['sendMap', id], (payload: TShip[]) => sendMap(id, payload), {
+  return useMutation(['sendMap', id], (payload: { ships: TShip[] }) => sendMap(id, payload), {
     onSuccess: () => {
       console.log('MAP')
     },

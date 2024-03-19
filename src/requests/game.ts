@@ -21,7 +21,7 @@ export const joinGame = async (id: string) => {
   await axiosInstance.post(apiConfig.game.join(id))
 }
 
-export const sendMap = async (id: string, payload: TShip[]) => {
+export const sendMap = async (id: string, payload: { ships: TShip[] }) => {
   await axiosInstance.patch(apiConfig.game.sendMap(id), payload)
 }
 
