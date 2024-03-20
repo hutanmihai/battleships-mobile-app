@@ -9,10 +9,10 @@ type TGridBoxProps = {
 }
 
 const colorMap = {
-  clear: 'white',
-  ship: 'blue',
-  destroyed: 'red',
-  'not-allowed': 'gray',
+  clear: '#26547C',
+  ship: '#06D6A0',
+  destroyed: '#EF476F',
+  'not-allowed': '#FFD166',
 }
 
 // Getting screen width
@@ -28,6 +28,7 @@ function GridBox({ status, onPress }: TGridBoxProps) {
         width: BOX_SIZE,
         height: BOX_SIZE,
         borderWidth: 1,
+        borderColor: '#FCFCFC',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colorMap[status],

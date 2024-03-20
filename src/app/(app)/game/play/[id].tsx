@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 
 import GridBox from '@/components/game/box'
+import Grid from '@/components/game/grid'
 import { useAuth } from '@/context/auth'
 import { useGetGame, useStrike } from '@/hooks/game'
 import { useGrid } from '@/hooks/useGrid'
@@ -46,13 +47,7 @@ function PlayGameScreen() {
         flexDirection: 'column',
       }}
     >
-      {myGrid.map((row: TBox[], rowIndex) => (
-        <View key={rowIndex} style={{ flexDirection: 'row' }}>
-          {row.map((cell, colIndex) => (
-            <GridBox key={`${rowIndex}-${colIndex}`} status={cell} onPress={() => {}} />
-          ))}
-        </View>
-      ))}
+      <Grid grid={myGrid} />
       {isMyTurn ? <Text>ATTACK!</Text> : <Text>WAIT FOR ENEMY</Text>}
       {enemyGrid.map((row: TBox[], rowIndex) => (
         <View key={rowIndex} style={{ flexDirection: 'row' }}>
@@ -61,7 +56,6 @@ function PlayGameScreen() {
               key={`${rowIndex}-${colIndex}`}
               status={cell}
               onPress={() => {
-                console.log('Strike', { x: String.fromCharCode(65 + colIndex), y: rowIndex + 1 })
                 strike({ x: String.fromCharCode(65 + colIndex), y: rowIndex + 1 })
               }}
             />
