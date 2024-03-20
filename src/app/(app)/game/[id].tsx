@@ -2,6 +2,7 @@ import { Link, useLocalSearchParams } from 'expo-router'
 import { Button, Pressable, StyleSheet, Text, View } from 'react-native'
 
 import { useGetGame, useJoinGame } from '@/hooks/game'
+import useCanPlayGame from '@/hooks/useCanPlayGame'
 import useCanStartMapConfig from '@/hooks/useCanStartMapConfig'
 import useIsGameJoinable from '@/hooks/useIsGameJoinable'
 
@@ -14,6 +15,7 @@ function GameScreen() {
 
   const { isGameJoinable } = useIsGameJoinable(game)
   const { canStartMapConfig } = useCanStartMapConfig(game)
+  const { canPlayGame } = useCanPlayGame(game)
 
   if (isLoading) {
     return (
@@ -34,6 +36,13 @@ function GameScreen() {
         <Link href={`/game/map/${game?.id}`} asChild>
           <Pressable>
             <Text>Map Config</Text>
+          </Pressable>
+        </Link>
+      )}
+      {canPlayGame && (
+        <Link href={`/game/play/${game?.id}`} asChild>
+          <Pressable>
+            {game?.moves.length ? <Text>Continue Game</Text> : <Text>Start Game</Text>}
           </Pressable>
         </Link>
       )}

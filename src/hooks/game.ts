@@ -25,7 +25,7 @@ export const useCreateGame = () => {
   })
 }
 
-export const useGetGame = (id: string) => {
+export const useGetGame = (id: string, refetchInterval: boolean) => {
   return useQuery(['getGame', id], () => getGame(id), {
     onSuccess: (data) => {
       console.log('GET', data)
@@ -33,6 +33,7 @@ export const useGetGame = (id: string) => {
     onError: (error) => {
       console.error('GET', error)
     },
+    refetchInterval: refetchInterval ? 5000 : false,
   })
 }
 

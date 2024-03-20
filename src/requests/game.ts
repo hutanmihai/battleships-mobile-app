@@ -26,5 +26,5 @@ export const sendMap = async (id: string, payload: { ships: TShip[] }) => {
 }
 
 export const strike = async (id: string, payload: TStrike) => {
-  await axiosInstance.patch(apiConfig.game.strike(id), payload)
+  await axiosInstance.post(apiConfig.game.strike(id), payload)
 }

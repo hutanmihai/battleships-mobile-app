@@ -35,12 +35,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [user, segment])
 
-  useEffect(() => {
-    setIsLoading(isLoginLoading || isRegisterLoading)
-  }, [isLoginLoading, isRegisterLoading])
-
   const login = useCallback(
     async (payload: TLoginRequest) => {
+      setIsLoading(true)
       loginMutation(payload, {
         onSuccess: async (tokens) => {
           try {
@@ -57,17 +54,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setUser(null)
         },
       })
+      setIsLoading(false)
     },
     [loginMutation]
   )
 
   const register = useCallback(
     async (payload: TRegisterRequest) => {
+      setIsLoading(true)
       registerMutation(payload, {
         onSuccess: async () => {
           router.push('(auth)/login')
         },
       })
+      setIsLoading(false)
     },
     [registerMutation]
   )
