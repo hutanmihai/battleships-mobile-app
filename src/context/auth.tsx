@@ -24,8 +24,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const segment = useSegments()[0]
   const router = useRouter()
 
-  const { mutate: loginMutation, isLoading: isLoginLoading } = useLogin()
-  const { mutate: registerMutation, isLoading: isRegisterLoading } = useRegister()
+  const { mutate: loginMutation } = useLogin()
+  const { mutate: registerMutation } = useRegister()
 
   useEffect(() => {
     if (!user && segment !== '(auth)') {

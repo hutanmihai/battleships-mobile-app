@@ -1,11 +1,10 @@
 import { useLocalSearchParams } from 'expo-router'
 import { Pressable, Text, View } from 'react-native'
 
-import GridBox from '@/components/game/box'
 import Grid from '@/components/game/grid'
 import { useSendMap } from '@/hooks/game'
 import { useGrid } from '@/hooks/useGrid'
-import { EShipPosition, TBox } from '@/types/game'
+import { EShipPosition } from '@/types/game'
 
 function MapConfigScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()

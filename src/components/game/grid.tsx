@@ -1,5 +1,4 @@
 import { View } from 'react-native'
-import { MutateOptions } from 'react-query'
 
 import GridBox from '@/components/game/box'
 import { TBox } from '@/types/game'

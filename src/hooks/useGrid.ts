@@ -2,9 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { EShipPosition, TBox, TShip } from '@/types/game'
 import { generateEmptyGrid, mapShipSizeToLength } from '@/utils/grid'
-import { showNotification } from '@/utils/toast'
+import { EToastType, showNotification } from '@/utils/toast'
 
-export type TShipsCoord = TShip[]
 export type TShipsNum = {
   s: number
   m: number
@@ -176,7 +175,7 @@ export const useGrid = () => {
           },
         ])
       } else {
-        showNotification('Invalid placement, please try again.')
+        showNotification(EToastType.ERROR, 'Invalid placement, please try again.')
       }
     },
     [grid, selectedShip, selectedShipPosition, shipsCoord, shipsNum, areAllShipsPlaced]

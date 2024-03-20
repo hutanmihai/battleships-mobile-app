@@ -3,28 +3,26 @@ import { useMutation } from 'react-query'
 
 import { login, register } from '@/requests/auth'
 import { TLoginRequest, TRegisterRequest } from '@/types/auth'
-import { showNotification } from '@/utils/toast'
+import { EToastType, showNotification } from '@/utils/toast'
 
 export const useLogin = () => {
   return useMutation('login', async (payload: TLoginRequest) => await login(payload), {
-    onSuccess: async (data) => {
-      console.log('LOGIN', data)
+    onSuccess: async () => {
+      showNotification(EToastType.SUCCESS, 'Login successful')
     },
     onError: (error: AxiosError) => {
-      console.error('LOGIN', error)
-      showNotification(error.message)
+      showNotification(EToastType.ERROR, error.message)
     },
   })
 }
 
 export const useRegister = () => {
   return useMutation('register', async (payload: TRegisterRequest) => await register(payload), {
-    onSuccess: async (data) => {
-      console.log('REGISTER', data)
+    onSuccess: async () => {
+      showNotification(EToastType.SUCCESS, 'Registration successful')
     },
     onError: (error: AxiosError) => {
-      console.error('REGISTER', error)
-      showNotification(error.message)
+      showNotification(EToastType.ERROR, error.message)
     },
   })
 }

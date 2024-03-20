@@ -1,5 +1,5 @@
 import { Link } from 'expo-router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 
 import { useListGames } from '@/hooks/game'

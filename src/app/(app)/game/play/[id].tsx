@@ -56,7 +56,14 @@ function PlayGameScreen() {
               key={`${rowIndex}-${colIndex}`}
               status={cell}
               onPress={() => {
-                strike({ x: String.fromCharCode(65 + colIndex), y: rowIndex + 1 })
+                strike(
+                  { x: String.fromCharCode(65 + colIndex), y: rowIndex + 1 },
+                  {
+                    onSuccess: () => {
+                      // TODO: update enemy grid
+                    },
+                  }
+                )
               }}
             />
           ))}
