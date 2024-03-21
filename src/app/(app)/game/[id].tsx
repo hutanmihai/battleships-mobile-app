@@ -1,6 +1,9 @@
-import { Link, useLocalSearchParams } from 'expo-router'
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native'
+import { useLocalSearchParams } from 'expo-router'
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 
+import Button from '@/components/ui/button'
+import LinkButton from '@/components/ui/link-button'
 import { useGetGame, useJoinGame } from '@/hooks/game'
 import useCanPlayGame from '@/hooks/useCanPlayGame'
 import useCanStartMapConfig from '@/hooks/useCanStartMapConfig'
@@ -28,24 +31,33 @@ function GameScreen() {
 
   return (
     <View style={styles.screenContainer}>
-      <Text>Game Screen</Text>
+      <Text style={{ color: palette.blue, fontWeight: 'bold', fontSize: 20, marginBottom: 5 }}>
+        {game?.id}
+      </Text>
       <Text>{game?.status}</Text>
       <Text>{game?.player1.email}</Text>
       <Text>{game?.player2?.email}</Text>
-      <Button title="Join game" onPress={() => joinGame()} disabled={!isGameJoinable} />
+      {isGameJoinable && (
+        <Button
+          title="Join game"
+          onPress={() => joinGame()}
+          style={{ width: 300, marginVertical: 10 }}
+        />
+      )}
+
       {canStartMapConfig && (
-        <Link href={`/game/map/${game?.id}`} asChild>
-          <Pressable>
-            <Text>Map Config</Text>
-          </Pressable>
-        </Link>
+        <LinkButton
+          route={`/game/map/${game?.id}`}
+          title="Start Map Config"
+          style={{ width: 300, marginVertical: 10 }}
+        />
       )}
       {canPlayGame && (
-        <Link href={`/game/play/${game?.id}`} asChild>
-          <Pressable>
-            {game?.moves.length ? <Text>Continue Game</Text> : <Text>Start Game</Text>}
-          </Pressable>
-        </Link>
+        <LinkButton
+          route={`/game/play/${game?.id}`}
+          title="Start Game"
+          style={{ width: 300, marginVertical: 10 }}
+        />
       )}
     </View>
   )
