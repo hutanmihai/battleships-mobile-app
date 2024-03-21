@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios'
-import { useMutation, useQuery } from 'react-query'
+import { useRouter } from 'expo-router'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 import { createGame, getGame, joinGame, listGames, sendMap, strike } from '@/requests/game'
 import { TShip, TStrike } from '@/types/game'
@@ -14,9 +15,12 @@ export const useListGames = () => {
 }
 
 export const useCreateGame = () => {
+  const queryClient = useQueryClient()
+
   return useQuery('createGame', createGame, {
     onSuccess: () => {
       showNotification(EToastType.SUCCESS, 'Game created')
+      queryClient.invalidateQueries('listGames')
     },
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)
@@ -34,7 +38,15 @@ export const useGetGame = (id: string, refetchInterval: boolean) => {
 }
 
 export const useJoinGame = (id: string) => {
+  const router = useRouter()
+  const queryClient = useQueryClient()
   return useMutation(['joinGame', id], () => joinGame(id), {
+    onSuccess: () => {
+      showNotification(EToastType.SUCCESS, 'Game joined')
+      router.replace(`(app)/game/${id}`)
+      queryClient.invalidateQueries('listGames')
+      queryClient.invalidateQueries(['getGame', id])
+    },
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)
     },
@@ -42,9 +54,13 @@ export const useJoinGame = (id: string) => {
 }
 
 export const useSendMap = (id: string) => {
+  const router = useRouter()
+  const queryClient = useQueryClient()
   return useMutation(['sendMap', id], (payload: { ships: TShip[] }) => sendMap(id, payload), {
     onSuccess: () => {
       showNotification(EToastType.SUCCESS, 'Map sent successfully')
+      router.replace(`(app)/game/${id}`)
+      queryClient.invalidateQueries(['getGame', id])
     },
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)

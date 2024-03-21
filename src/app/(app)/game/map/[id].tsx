@@ -65,7 +65,7 @@ function MapConfigScreen() {
           <Button
             title="Send Map"
             onPress={() => sendMap({ ships: shipsCoord })}
-            style={{ width: 300 }}
+            style={{ width: 300, marginTop: 20 }}
           />
         )}
       <View style={styles.selectedShipContainer}>
