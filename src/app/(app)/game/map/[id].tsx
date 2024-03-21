@@ -156,6 +156,28 @@ function MapConfigScreen() {
             style={{ width: 300 }}
           />
         )}
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Text
+          style={{
+            color: palette.blue,
+            fontWeight: 'bold',
+            fontSize: 20,
+            marginTop: 10,
+            marginBottom: 5,
+          }}
+        >
+          Selected Ship
+        </Text>
+        <Text>{selectedShip?.toUpperCase()}</Text>
+        <Text>{selectedShipPosition}</Text>
+      </View>
     </View>
   )
 }
