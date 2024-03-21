@@ -6,7 +6,6 @@ export const storeTokens = async (tokens: TTokens) => {
   try {
     await SecureStore.setItemAsync('accessToken', tokens.accessToken)
     await SecureStore.setItemAsync('refreshToken', tokens.refreshToken)
-    console.log('Successfully stored tokens')
   } catch (error) {
     console.error('Error storing tokens:', error)
   }
@@ -32,7 +31,6 @@ export const deleteTokens = async () => {
   try {
     await SecureStore.deleteItemAsync('accessToken')
     await SecureStore.deleteItemAsync('refreshToken')
-    console.log('Successfully deleted tokens')
   } catch (error) {
     console.error('Error deleting tokens:', error)
   }

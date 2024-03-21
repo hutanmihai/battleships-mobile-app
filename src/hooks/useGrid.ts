@@ -150,8 +150,6 @@ export const useGrid = () => {
           },
         ])
 
-        console.log('Ships coord', shipsCoord)
-
         // decrement number of ships
         if (selectedShip === 's') {
           setShipsNum((prev) => ({ ...prev, s: prev.s - 1 }))

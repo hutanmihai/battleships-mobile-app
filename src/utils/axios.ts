@@ -34,7 +34,7 @@ axiosInstance.interceptors.response.use(
     }
     if (error.response && error.response.data) {
       const errorObject: TErrorResponse = error.response.data
-      console.log('ERROR', errorObject)
+      console.error('ERROR', errorObject)
       throw new Error(errorObject.message)
     }
     return Promise.reject(error)

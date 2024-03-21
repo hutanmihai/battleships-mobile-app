@@ -9,10 +9,8 @@ function useIsGameJoinable(game: TGame | undefined) {
 
   const isGameJoinable = useMemo(() => {
     if (!game || !userId) {
-      console.log(userId)
       return false
     }
-    console.log('game', game)
     return !(
       game.status === EGameStatus.FINISHED ||
       (game.player1Id && game.player2Id) ||

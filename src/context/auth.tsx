@@ -44,8 +44,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             await storeTokens(tokens)
             const { user } = await me()
             setUser(user)
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
           } catch (error) {
-            console.error('ME', error)
             await deleteTokens()
             setUser(null)
           }
