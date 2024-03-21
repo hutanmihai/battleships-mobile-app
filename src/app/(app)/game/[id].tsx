@@ -5,6 +5,7 @@ import { useGetGame, useJoinGame } from '@/hooks/game'
 import useCanPlayGame from '@/hooks/useCanPlayGame'
 import useCanStartMapConfig from '@/hooks/useCanStartMapConfig'
 import useIsGameJoinable from '@/hooks/useIsGameJoinable'
+import { palette } from '@/theme'
 
 function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: palette.white,
   },
 })
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Dimensions } from 'react-native'
 
+import { palette } from '@/theme'
 import { TBox } from '@/types/game'
 
 type TGridBoxProps = {
@@ -9,10 +10,10 @@ type TGridBoxProps = {
 }
 
 const colorMap = {
-  clear: '#26547C',
-  ship: '#06D6A0',
-  destroyed: '#EF476F',
-  'not-allowed': '#FFD166',
+  clear: palette.blue,
+  ship: palette.green,
+  destroyed: palette.red,
+  'not-allowed': palette.yellow,
 }
 
 // Getting screen width
@@ -28,7 +29,7 @@ function GridBox({ status, onPress }: TGridBoxProps) {
         width: BOX_SIZE,
         height: BOX_SIZE,
         borderWidth: 1,
-        borderColor: '#FCFCFC',
+        borderColor: palette.white,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colorMap[status],

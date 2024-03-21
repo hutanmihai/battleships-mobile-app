@@ -2,6 +2,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
+import { palette } from '@/theme'
+
 type TFloatingBarProps = {
   onHomePress: () => void
   onProfilePress: () => void
@@ -35,14 +37,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'red',
+    backgroundColor: palette.blue,
+    color: palette.white,
     marginHorizontal: 30,
     paddingVertical: 10,
     borderRadius: 30,
   },
   button: {
     padding: 10,
-    backgroundColor: '#007AFF',
+    backgroundColor: palette.green,
     borderRadius: 30,
   },
 })

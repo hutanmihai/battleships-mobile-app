@@ -4,6 +4,7 @@ import { Pressable, Text, View } from 'react-native'
 import Grid from '@/components/game/grid'
 import { useSendMap } from '@/hooks/game'
 import { useGrid } from '@/hooks/useGrid'
+import { palette } from '@/theme'
 import { EShipPosition } from '@/types/game'
 
 function MapConfigScreen() {
@@ -25,7 +26,7 @@ function MapConfigScreen() {
   const { mutate: sendMap } = useSendMap(id)
 
   return (
-    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+    <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: palette.white }}>
       <Grid grid={grid} onPress={placeShipOnGrid} />
       <Pressable onPress={() => setSelectedShip('s')} disabled={areAllShipsPlaced.s}>
         <Text>S ships: {shipsNum.s}</Text>

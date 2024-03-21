@@ -7,6 +7,7 @@ import Grid from '@/components/game/grid'
 import { useAuth } from '@/context/auth'
 import { useGetGame, useStrike } from '@/hooks/game'
 import { useGrid } from '@/hooks/useGrid'
+import { palette } from '@/theme'
 import { TBox } from '@/types/game'
 
 function PlayGameScreen() {
@@ -45,6 +46,7 @@ function PlayGameScreen() {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        backgroundColor: palette.white,
       }}
     >
       <Grid grid={myGrid} />

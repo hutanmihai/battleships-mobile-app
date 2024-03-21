@@ -3,28 +3,24 @@ import React from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 
 import { useListGames } from '@/hooks/game'
-import { EGameStatus } from '@/types/game'
+import { palette } from '@/theme'
+import { TGame } from '@/types/game'
 
 function GamesList() {
   const { data: games, isLoading } = useListGames()
 
-  const renderGameItem = ({ item: game }: { item: any }) =>
-    game.status !== EGameStatus.FINISHED ? (
-      <Link href={`/game/${game.id}`} asChild>
-        <TouchableOpacity style={styles.gameItem}>
-          <GameDetails game={game} />
-        </TouchableOpacity>
-      </Link>
-    ) : (
-      <View style={styles.gameItem}>
+  const renderGameItem = ({ item: game }: { item: any }) => (
+    <Link href={`/game/${game.id}`} asChild>
+      <TouchableOpacity style={[styles.gameItem, { backgroundColor: palette.blue }]}>
         <GameDetails game={game} />
-      </View>
-    )
+      </TouchableOpacity>
+    </Link>
+  )
 
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <Text style={styles.loadingText}>Loading...</Text>
+        <Text style={[styles.loadingText, { color: palette.red }]}>Loading...</Text>
       </View>
     )
   }
@@ -40,14 +36,22 @@ function GamesList() {
   )
 }
 
-const GameDetails = ({ game }: { game: any }) => (
-  <>
-    <Text style={styles.gameText}>{game.id}</Text>
-    <Text style={styles.statusText}>{game.status}</Text>
+const GameDetails = ({ game }: { game: TGame }) => (
+  <View
+    style={{
+      marginVertical: 10,
+      borderStyle: 'solid',
+      borderBottomWidth: 1,
+      paddingBottom: 5,
+      borderBottomColor: palette.blue,
+    }}
+  >
+    <Text style={[styles.gameText, { color: palette.blue, textAlign: 'center' }]}>{game.id}</Text>
+    <Text style={[styles.statusText, { textAlign: 'center', marginBottom: 4 }]}>{game.status}</Text>
+    <Text style={{ color: palette.blue }}>Players:</Text>
     <Text style={styles.emailText}>{game.player1.email}</Text>
     <Text style={styles.emailText}>{game.player2?.email}</Text>
-    <Text style={styles.moveText}>{game.playerToMoveId}</Text>
-  </>
+  </View>
 )
 
 const styles = StyleSheet.create({
@@ -55,6 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: palette.blue,
   },
   loadingText: {
     fontSize: 20,
@@ -62,22 +67,27 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 10,
+    backgroundColor: palette.white,
   },
   gameItem: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    padding: 10,
-    marginVertical: 5,
-    borderRadius: 5,
-    backgroundColor: '#f9f9f9',
+    borderWidth: 2,
+    borderColor: palette.red,
+    padding: 20,
+    marginVertical: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
   },
   gameText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
+    marginBottom: 5,
   },
   statusText: {
-    fontSize: 14,
-    color: 'gray',
+    fontSize: 16,
   },
   emailText: {
     fontSize: 14,

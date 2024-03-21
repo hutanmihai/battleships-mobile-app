@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
+
+import Button from '@/components/ui/button'
+import { palette } from '@/theme'
 
 type TAuthFormProps = {
   onClick: ({ email, password }: { email: string; password: string }) => void
@@ -27,6 +30,7 @@ function AuthForm({ onClick, isLoading, buttonText }: TAuthFormProps) {
         title={isLoading ? buttonText + '...' : buttonText}
         onPress={() => onClick({ email, password })}
         disabled={isLoading}
+        style={{ width: 300 }}
       />
     </View>
   )
@@ -38,6 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    backgroundColor: palette.white,
   },
   label: {
     fontSize: 16,

@@ -1,5 +1,7 @@
 import { Stack } from 'expo-router'
 
+import { palette } from '@/theme'
+
 function AppLayout() {
   return (
     <Stack>
@@ -8,30 +10,45 @@ function AppLayout() {
         options={{
           presentation: 'modal',
           title: 'Me',
+          headerStyle: { backgroundColor: palette.blue },
+          headerTitleStyle: { color: palette.white },
+          headerTintColor: palette.yellow,
         }}
       />
       <Stack.Screen
         name="game/map/[id]"
         options={{
           title: 'Map Config',
+          headerStyle: { backgroundColor: palette.blue },
+          headerTitleStyle: { color: palette.white },
+          headerTintColor: palette.yellow,
         }}
       />
       <Stack.Screen
         name="game/play/[id]"
         options={{
           title: 'Play Game',
+          headerStyle: { backgroundColor: palette.blue },
+          headerTitleStyle: { color: palette.white },
+          headerTintColor: palette.yellow,
         }}
       />
       <Stack.Screen
         name="game/[id]"
         options={{
           title: 'Game Overview',
+          headerStyle: { backgroundColor: palette.blue },
+          headerTitleStyle: { color: palette.white },
+          headerTintColor: palette.yellow,
         }}
       />
       <Stack.Screen
         name="index"
         options={{
           title: 'Battleships',
+          headerStyle: { backgroundColor: palette.blue },
+          headerTitleStyle: { color: palette.white },
+          headerTintColor: palette.yellow,
         }}
       />
     </Stack>

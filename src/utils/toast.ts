@@ -1,24 +1,32 @@
 import Toast from 'react-native-root-toast'
 
+import { palette } from '@/theme'
+
 export enum EToastType {
   ERROR = 'error',
   SUCCESS = 'success',
 }
 
 export const showNotification = (type: 'error' | 'success', message: string) => {
-  let backgroundColor = '#06D6A0' // default to success green
+  let backgroundColor = palette.green
   if (type === 'error') {
-    backgroundColor = '#EF476F' // error red
+    backgroundColor = palette.red
   }
 
   Toast.show(message, {
-    duration: Toast.durations.LONG,
-    position: Toast.positions.BOTTOM,
+    duration: Toast.durations.SHORT,
+    position: Toast.positions.TOP,
     shadow: true,
     animation: true,
     hideOnPress: true,
     delay: 0,
     backgroundColor,
-    textColor: '#FCFCFC',
+    textColor: palette.white,
+    containerStyle: {
+      padding: 10,
+      borderRadius: 10,
+      minWidth: 200,
+      minHeight: 50,
+    },
   })
 }
