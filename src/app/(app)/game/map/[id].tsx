@@ -1,8 +1,9 @@
 import { useLocalSearchParams } from 'expo-router'
-import { Pressable, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import Grid from '@/components/game/grid'
 import Button from '@/components/ui/button'
+import Chip from '@/components/ui/chip'
 import { useSendMap } from '@/hooks/game'
 import { useGrid } from '@/hooks/useGrid'
 import { palette } from '@/theme'
@@ -27,113 +28,24 @@ function MapConfigScreen() {
   const { mutate: sendMap } = useSendMap(id)
 
   return (
-    <View
-      style={{
-        flexDirection: 'column',
-        alignItems: 'center',
-        backgroundColor: palette.white,
-        height: '100%',
-        marginTop: '10%',
-      }}
-    >
+    <View style={styles.container}>
       <Grid grid={grid} onPress={placeShipOnGrid} />
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          width: '100%',
-          marginVertical: 20,
-        }}
-      >
+      <View style={styles.chipsContainer}>
         <Pressable onPress={() => setSelectedShip('s')} disabled={areAllShipsPlaced.s}>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderStyle: 'solid',
-              borderWidth: 1,
-              borderColor: palette.blue,
-              backgroundColor: palette.blue,
-              width: 50,
-              borderRadius: 100,
-            }}
-          >
-            <Text style={{ color: palette.white }}>S</Text>
-            <Text style={{ color: palette.white }}>{shipsNum.s}</Text>
-          </View>
+          <Chip size="S" number={shipsNum.s} />
         </Pressable>
         <Pressable onPress={() => setSelectedShip('m')} disabled={areAllShipsPlaced.m}>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderStyle: 'solid',
-              borderWidth: 1,
-              borderColor: palette.blue,
-              backgroundColor: palette.blue,
-              width: 50,
-              borderRadius: 100,
-            }}
-          >
-            <Text style={{ color: palette.white }}>M</Text>
-            <Text style={{ color: palette.white }}>{shipsNum.m}</Text>
-          </View>
+          <Chip size="M" number={shipsNum.m} />
         </Pressable>
         <Pressable onPress={() => setSelectedShip('l')} disabled={areAllShipsPlaced.l}>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderStyle: 'solid',
-              borderWidth: 1,
-              borderColor: palette.blue,
-              backgroundColor: palette.blue,
-              width: 50,
-              borderRadius: 100,
-            }}
-          >
-            <Text style={{ color: palette.white }}>L</Text>
-            <Text style={{ color: palette.white }}>{shipsNum.l}</Text>
-          </View>
+          <Chip size="L" number={shipsNum.l} />
         </Pressable>
-        <Pressable onPress={() => setSelectedShip('l')} disabled={areAllShipsPlaced.xl}>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderStyle: 'solid',
-              borderWidth: 1,
-              borderColor: palette.blue,
-              backgroundColor: palette.blue,
-              width: 50,
-              borderRadius: 100,
-            }}
-          >
-            <Text style={{ color: palette.white }}>XL</Text>
-            <Text style={{ color: palette.white }}>{shipsNum.xl}</Text>
-          </View>
+        <Pressable onPress={() => setSelectedShip('xl')} disabled={areAllShipsPlaced.xl}>
+          <Chip size="XL" number={shipsNum.xl} />
         </Pressable>
       </View>
 
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '80%',
-          marginBottom: 20,
-        }}
-      >
+      <View style={styles.positionContainer}>
         <Button
           onPress={() => setSelectedShipPosition(EShipPosition.HORIZONTAL)}
           title="Horizontal"
@@ -156,30 +68,51 @@ function MapConfigScreen() {
             style={{ width: 300 }}
           />
         )}
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Text
-          style={{
-            color: palette.blue,
-            fontWeight: 'bold',
-            fontSize: 20,
-            marginTop: 10,
-            marginBottom: 5,
-          }}
-        >
-          Selected Ship
-        </Text>
+      <View style={styles.selectedShipContainer}>
+        <Text style={styles.selectedShipTitle}>Selected Ship</Text>
         <Text>{selectedShip?.toUpperCase()}</Text>
         <Text>{selectedShipPosition}</Text>
       </View>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: palette.white,
+    height: '100%',
+    marginTop: '10%',
+  },
+  chipsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginVertical: 20,
+  },
+  positionContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '80%',
+    marginBottom: 20,
+  },
+  selectedShipContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectedShipTitle: {
+    color: palette.blue,
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginTop: 10,
+    marginBottom: 5,
+  },
+})
 
 export default MapConfigScreen

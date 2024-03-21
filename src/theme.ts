@@ -4,4 +4,5 @@ export const palette = {
   red: '#EF476F',
   yellow: '#FFD166',
   white: '#FCFCFC',
+  darkBlue: '#253C78',
 }

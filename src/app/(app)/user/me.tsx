@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet } from 'react-native'
 
 import { useMe } from '@/hooks/user'
+import { palette } from '@/theme'
 
 function MeScreen() {
   const { data: me } = useMe()
@@ -41,16 +42,23 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: palette.blue,
   },
   card: {
     width: '100%',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: palette.blue,
     padding: 15,
     borderRadius: 10,
     marginTop: 10,
+    shadowColor: palette.darkBlue,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 2,
   },
   cardText: {
     fontSize: 16,
+    color: palette.white,
   },
 })
 export default MeScreen

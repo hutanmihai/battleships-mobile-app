@@ -11,7 +11,7 @@ function GamesList() {
 
   const renderGameItem = ({ item: game }: { item: any }) => (
     <Link href={`/game/${game.id}`} asChild>
-      <TouchableOpacity style={[styles.gameItem, { backgroundColor: palette.blue }]}>
+      <TouchableOpacity style={styles.gameItem}>
         <GameDetails game={game} />
       </TouchableOpacity>
     </Link>
@@ -20,7 +20,7 @@ function GamesList() {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <Text style={[styles.loadingText, { color: palette.red }]}>Loading...</Text>
+        <Text style={styles.loadingText}>Loading...</Text>
       </View>
     )
   }
@@ -37,17 +37,9 @@ function GamesList() {
 }
 
 const GameDetails = ({ game }: { game: TGame }) => (
-  <View
-    style={{
-      marginVertical: 10,
-      borderStyle: 'solid',
-      borderBottomWidth: 1,
-      paddingBottom: 5,
-      borderBottomColor: palette.blue,
-    }}
-  >
-    <Text style={[styles.gameText, { color: palette.blue, textAlign: 'center' }]}>{game.id}</Text>
-    <Text style={[styles.statusText, { textAlign: 'center', marginBottom: 4 }]}>{game.status}</Text>
+  <View style={styles.gameDetailsContainer}>
+    <Text style={styles.gameText}>{game.id}</Text>
+    <Text style={styles.statusText}>{game.status}</Text>
     <Text style={{ color: palette.blue }}>Players:</Text>
     <Text style={styles.emailText}>{game.player1.email}</Text>
     <Text style={styles.emailText}>{game.player2?.email}</Text>
@@ -64,30 +56,33 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: palette.red,
   },
   listContainer: {
     padding: 10,
     backgroundColor: palette.white,
   },
   gameItem: {
-    borderWidth: 2,
-    borderColor: palette.red,
     padding: 20,
     marginVertical: 10,
     borderRadius: 10,
-    shadowColor: '#000',
+    shadowColor: palette.darkBlue,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
-    elevation: 4,
+    elevation: 2,
   },
   gameText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: palette.blue,
+    textAlign: 'center',
   },
   statusText: {
     fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 4,
   },
   emailText: {
     fontSize: 14,
@@ -95,6 +90,13 @@ const styles = StyleSheet.create({
   moveText: {
     fontSize: 14,
     marginTop: 5,
+  },
+  gameDetailsContainer: {
+    marginVertical: 10,
+    borderStyle: 'solid',
+    borderBottomWidth: 1,
+    paddingBottom: 5,
+    borderBottomColor: palette.blue,
   },
 })
 

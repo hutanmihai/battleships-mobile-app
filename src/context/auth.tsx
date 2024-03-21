@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (!user && segment !== '(auth)') {
       router.replace('(auth)/login')
     } else if (user && segment === '(auth)') {
-      router.replace('/')
+      router.replace('(app)/game/list')
     }
   }, [user, segment])
 

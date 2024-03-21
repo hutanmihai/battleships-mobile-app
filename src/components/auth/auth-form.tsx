@@ -27,10 +27,11 @@ function AuthForm({ onClick, isLoading, buttonText }: TAuthFormProps) {
       <Text style={styles.label}>Password:</Text>
       <TextInput style={styles.input} value={password} onChangeText={setPassword} secureTextEntry />
       <Button
-        title={isLoading ? buttonText + '...' : buttonText}
+        title={buttonText}
         onPress={() => onClick({ email, password })}
         disabled={isLoading}
         style={{ width: 300 }}
+        loading={isLoading}
       />
     </View>
   )
@@ -45,14 +46,15 @@ const styles = StyleSheet.create({
     backgroundColor: palette.white,
   },
   label: {
-    fontSize: 16,
+    fontSize: 14,
     marginBottom: 5,
+    color: palette.blue,
   },
   input: {
     width: 300,
     height: 40,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: palette.blue,
     borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,

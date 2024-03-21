@@ -20,12 +20,13 @@ export const showNotification = (type: 'error' | 'success', message: string) => 
     animation: true,
     hideOnPress: true,
     delay: 0,
+    opacity: 1,
     backgroundColor,
     textColor: palette.white,
     containerStyle: {
       padding: 10,
       borderRadius: 10,
-      minWidth: 200,
+      minWidth: 300,
       minHeight: 50,
     },
   })

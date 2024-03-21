@@ -16,9 +16,7 @@ const colorMap = {
   'not-allowed': palette.yellow,
 }
 
-// Getting screen width
 const { width } = Dimensions.get('window')
-// Calculate the box size, subtract a little if you need spacing between boxes
 const BOX_SIZE = Math.floor(width / 11)
 
 function GridBox({ status, onPress }: TGridBoxProps) {
@@ -29,7 +27,7 @@ function GridBox({ status, onPress }: TGridBoxProps) {
         width: BOX_SIZE,
         height: BOX_SIZE,
         borderWidth: 1,
-        borderColor: palette.white,
+        borderColor: palette.darkBlue,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colorMap[status],

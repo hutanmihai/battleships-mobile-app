@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import GridBox from '@/components/game/box'
 import Grid from '@/components/game/grid'
@@ -40,17 +40,13 @@ function PlayGameScreen() {
   }
 
   return (
-    <View
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        backgroundColor: palette.white,
-      }}
-    >
+    <View style={styles.container}>
       <Grid grid={myGrid} />
-      {isMyTurn ? <Text>ATTACK!</Text> : <Text>WAIT FOR ENEMY</Text>}
+      {isMyTurn ? (
+        <Text style={styles.attack}>ATTACK!</Text>
+      ) : (
+        <Text style={styles.wait}>WAIT FOR ENEMY</Text>
+      )}
       {enemyGrid.map((row: TBox[], rowIndex) => (
         <View key={rowIndex} style={{ flexDirection: 'row' }}>
           {row.map((cell, colIndex) => (
@@ -74,5 +70,25 @@ function PlayGameScreen() {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: palette.white,
+  },
+  attack: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: palette.red,
+  },
+  wait: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: palette.blue,
+  },
+})
 
 export default PlayGameScreen
