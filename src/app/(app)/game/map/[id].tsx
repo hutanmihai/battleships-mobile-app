@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import Grid from '@/components/game/grid'
@@ -11,6 +11,9 @@ import { EShipPosition } from '@/types/game'
 
 function MapConfigScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()
+  // @ts-ignore
+  const { mutateAsync: sendMap } = useSendMap(id)
+  const router = useRouter()
 
   const {
     grid,
@@ -24,8 +27,14 @@ function MapConfigScreen() {
     placeShipOnGrid,
     handleRevert,
   } = useGrid()
-  // @ts-ignore
-  const { mutate: sendMap } = useSendMap(id)
+
+  const handleSendMap = async () => {
+    try {
+      await sendMap({ ships: shipsCoord })
+      router.back()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_) {}
+  }
 
   return (
     <View style={styles.container}>
@@ -62,11 +71,7 @@ function MapConfigScreen() {
         areAllShipsPlaced.m &&
         areAllShipsPlaced.l &&
         areAllShipsPlaced.xl && (
-          <Button
-            title="Send Map"
-            onPress={() => sendMap({ ships: shipsCoord })}
-            style={{ width: 300, marginTop: 20 }}
-          />
+          <Button title="Send Map" onPress={handleSendMap} style={{ width: 300, marginTop: 20 }} />
         )}
       <View style={styles.selectedShipContainer}>
         <Text style={styles.selectedShipTitle}>Selected Ship</Text>

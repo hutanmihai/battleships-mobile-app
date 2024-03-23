@@ -1,13 +1,28 @@
 import { Link } from 'expo-router'
-import React from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
+import { useMemo } from 'react'
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
+import { useAuth } from '@/context/auth'
 import { useListGames } from '@/hooks/game'
 import { palette } from '@/theme'
-import { TGame } from '@/types/game'
+import { EGameStatus, TGame } from '@/types/game'
 
 function GamesList() {
   const { data: games, isLoading } = useListGames()
+  const { user } = useAuth()
+  const userId = user?.id
+
+  const filteredGames = useMemo(() => {
+    if (!games) {
+      return []
+    }
+    return games.games.filter((game) => {
+      if (game.status === EGameStatus.CREATED) {
+        return true
+      }
+      return game.player1Id === userId || game.player2Id === userId
+    })
+  }, [games])
 
   const renderGameItem = ({ item: game }: { item: any }) => (
     <Link href={`/game/${game.id}`} asChild>
@@ -27,7 +42,7 @@ function GamesList() {
 
   return (
     <FlatList
-      data={games?.games}
+      data={filteredGames}
       renderItem={renderGameItem}
       keyExtractor={(game) => game.id}
       contentContainerStyle={styles.listContainer}
