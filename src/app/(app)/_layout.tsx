@@ -51,15 +51,6 @@ function AppLayout() {
           headerTintColor: palette.yellow,
         }}
       />
-      <Stack.Screen
-        name="game/create"
-        options={{
-          title: 'Game Created',
-          headerStyle: { backgroundColor: palette.blue },
-          headerTitleStyle: { color: palette.white },
-          headerTintColor: palette.yellow,
-        }}
-      />
     </Stack>
   )
 }

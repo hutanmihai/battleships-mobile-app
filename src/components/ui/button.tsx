@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-nat
 import { palette } from '@/theme'
 
 type TLinkButtonProps = {
-  onPress: () => void
+  onPress: () => void | Promise<void>
   title: string
   iconLeft?: ReactNode
   iconRight?: ReactNode

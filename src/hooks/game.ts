@@ -25,6 +25,7 @@ export const useCreateGame = () => {
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)
     },
+    enabled: false,
   })
 }
 
