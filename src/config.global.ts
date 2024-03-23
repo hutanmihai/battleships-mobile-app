@@ -13,7 +13,7 @@ export const apiConfig = {
     create: `${BACKEND_URL}/game`,
     get: (id: string) => `${BACKEND_URL}/game/${id}`,
     join: (id: string) => `${BACKEND_URL}/game/join/${id}`,
-    strike: (id: string) => `${BACKEND_URL}/game/${id}/strike`,
+    strike: (id: string) => `${BACKEND_URL}/game/strike/${id}`,
     sendMap: (id: string) => `${BACKEND_URL}/game/${id}`,
   },
 }

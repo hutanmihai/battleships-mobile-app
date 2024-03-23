@@ -70,6 +70,9 @@ export const useSendMap = (id: string) => {
 
 export const useStrike = (id: string) => {
   return useMutation(['strike', id], (payload: TStrike) => strike(id, payload), {
+    onSuccess: () => {
+      showNotification(EToastType.SUCCESS, 'Strike sent successfully')
+    },
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)
     },
