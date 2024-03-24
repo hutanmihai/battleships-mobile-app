@@ -11,6 +11,7 @@ export const useListGames = () => {
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)
     },
+    refetchInterval: 5000,
   })
 }
 

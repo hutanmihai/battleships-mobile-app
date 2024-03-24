@@ -16,7 +16,7 @@ import { palette } from '@/theme'
 function GameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()
   // @ts-ignore
-  const { data: game, isLoading } = useGetGame(id)
+  const { data: game, isLoading } = useGetGame(id, true)
   // @ts-ignore
   const { mutate: joinGame } = useJoinGame(id)
 

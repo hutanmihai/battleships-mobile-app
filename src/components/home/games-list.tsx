@@ -19,7 +19,7 @@ function GamesList() {
     }
     return games.games.filter((game) => {
       const isPlayer = game.player1Id === userId || game.player2Id === userId
-      if (game.status === EGameStatus.CREATED && !isPlayer) {
+      if (game.status === EGameStatus.CREATED) {
         return true
       }
       return (
