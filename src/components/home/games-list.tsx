@@ -2,6 +2,7 @@ import { Link } from 'expo-router'
 import { useMemo } from 'react'
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
+import Label from '@/components/ui/label'
 import { useAuth } from '@/context/auth'
 import { useListGames } from '@/hooks/game'
 import { palette } from '@/theme'
@@ -58,7 +59,7 @@ function GamesList() {
 const GameDetails = ({ game }: { game: TGame }) => (
   <View style={styles.gameDetailsContainer}>
     <Text style={styles.gameText}>{game.id}</Text>
-    <Text style={styles.statusText}>{game.status}</Text>
+    <Label status={game.status} />
     <Text style={{ color: palette.blue }}>Players:</Text>
     <Text style={styles.emailText}>{game.player1.email}</Text>
     <Text style={styles.emailText}>{game.player2?.email}</Text>
@@ -97,11 +98,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: palette.blue,
     textAlign: 'center',
-  },
-  statusText: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 4,
   },
   emailText: {
     fontSize: 14,

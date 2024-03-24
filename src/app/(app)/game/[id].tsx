@@ -3,6 +3,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import Button from '@/components/ui/button'
+import Label from '@/components/ui/label'
 import LinkButton from '@/components/ui/link-button'
 import { useGetGame, useJoinGame } from '@/hooks/game'
 import useCanPlayGame from '@/hooks/useCanPlayGame'
@@ -34,7 +35,7 @@ function GameScreen() {
   return (
     <View style={styles.screenContainer}>
       <Text style={styles.text}>{game?.id}</Text>
-      <Text>{game?.status}</Text>
+      <Label status={game?.status} />
       <Text>{game?.player1.email}</Text>
       <Text>{game?.player2?.email}</Text>
       {isGameJoinable && (
