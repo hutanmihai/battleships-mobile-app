@@ -34,17 +34,15 @@ export const useGetGame = (id: string, refetchInterval: boolean) => {
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)
     },
-    refetchInterval: refetchInterval ? 5000 : false,
+    refetchInterval: refetchInterval ? 2000 : false,
   })
 }
 
 export const useJoinGame = (id: string) => {
-  const router = useRouter()
   const queryClient = useQueryClient()
   return useMutation(['joinGame', id], () => joinGame(id), {
     onSuccess: () => {
       showNotification(EToastType.SUCCESS, 'Game joined')
-      router.replace(`(app)/game/${id}`)
       queryClient.invalidateQueries('listGames')
       queryClient.invalidateQueries(['getGame', id])
     },

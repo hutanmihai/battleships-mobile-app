@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
@@ -8,7 +8,7 @@ import { useAuth } from '@/context/auth'
 import { useGetGame, useStrike } from '@/hooks/game'
 import { useGrid } from '@/hooks/useGrid'
 import { palette } from '@/theme'
-import { TBox } from '@/types/game'
+import { EGameStatus, TBox } from '@/types/game'
 
 function PlayGameScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -23,14 +23,28 @@ function PlayGameScreen() {
 
   // @ts-ignore
   const { data: game } = useGetGame(id, !isMyTurn)
+  const router = useRouter()
 
   useEffect(() => {
     if (game) {
+      if (game.status === EGameStatus.FINISHED) {
+        router.back()
+      }
       if (game?.playerToMoveId === userId) {
         setIsMyTurn(true)
       }
       for (const ship of game?.shipsCoord) {
-        updateMyGridBox([...myGrid], ship.x, ship.y, 'ship')
+        // @ts-ignore
+        updateMyGridBox([...myGrid], ship.x, ship.y, ship.hit ? 'destroyed' : 'ship')
+      }
+      for (const move of game?.moves.filter((move) => move.playerId === userId)) {
+        // @ts-ignore
+        updateEnemyGridBox(
+          [...enemyGrid],
+          move.x,
+          move.y,
+          move.result ? 'destroyed' : 'not-allowed'
+        )
       }
     }
   }, [game])
@@ -54,6 +68,8 @@ function PlayGameScreen() {
               key={`${rowIndex}-${colIndex}`}
               status={cell}
               onPress={() => {
+                if (!isMyTurn) return
+                setIsMyTurn(false)
                 strike(
                   { x: String.fromCharCode(65 + colIndex), y: rowIndex + 1 },
                   {

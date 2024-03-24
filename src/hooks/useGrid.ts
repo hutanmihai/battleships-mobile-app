@@ -28,25 +28,6 @@ type TStateHistory = {
 export const useGrid = () => {
   const [grid, setGrid] = useState<TBox[][]>(generateEmptyGrid)
   const [shipsCoord, setShipsCoord] = useState<TShip[]>([])
-  const [stateHistory, setStateHistory] = useState<TStateHistory[]>([
-    {
-      grid: Array(10).fill(Array(10).fill('clear')),
-      shipsCoord: [],
-      shipsNum: {
-        s: 4,
-        m: 3,
-        l: 2,
-        xl: 1,
-      },
-      areAllShipsPlaced: {
-        s: false,
-        m: false,
-        l: false,
-        xl: false,
-      },
-    },
-  ])
-
   const [shipsNum, setShipsNum] = useState({
     s: 4,
     m: 3,
@@ -59,6 +40,15 @@ export const useGrid = () => {
     l: false,
     xl: false,
   })
+  const [stateHistory, setStateHistory] = useState<TStateHistory[]>([
+    {
+      grid: [...grid],
+      shipsCoord: [...shipsCoord],
+      shipsNum: { ...shipsNum },
+      areAllShipsPlaced: { ...areAllShipsPlaced },
+    },
+  ])
+
   const [selectedShip, setSelectedShip] = useState<'s' | 'm' | 'l' | 'xl' | null>(null)
   const [selectedShipPosition, setSelectedShipPosition] = useState<EShipPosition>(
     EShipPosition.HORIZONTAL

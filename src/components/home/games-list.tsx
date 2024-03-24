@@ -17,10 +17,14 @@ function GamesList() {
       return []
     }
     return games.games.filter((game) => {
-      if (game.status === EGameStatus.CREATED) {
+      const isPlayer = game.player1Id === userId || game.player2Id === userId
+      if (game.status === EGameStatus.CREATED && !isPlayer) {
         return true
       }
-      return game.player1Id === userId || game.player2Id === userId
+      return (
+        [EGameStatus.MAP_CONFIG, EGameStatus.ACTIVE, EGameStatus.FINISHED].includes(game.status) &&
+        isPlayer
+      )
     })
   }, [games])
 
