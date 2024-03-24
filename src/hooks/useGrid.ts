@@ -129,34 +129,22 @@ export const useGrid = () => {
           newGrid[currentRow][currentCol] = 'ship'
         }
 
-        setGrid(newGrid)
-        setShipsCoord((prev) => [
-          ...prev,
-          {
-            x: String.fromCharCode(65 + colIndex),
-            y: rowIndex + 1,
-            size: shipLength,
-            direction: selectedShipPosition,
-          },
-        ])
-
-        // decrement number of ships
-        if (selectedShip === 's') {
-          setShipsNum((prev) => ({ ...prev, s: prev.s - 1 }))
-        } else if (selectedShip === 'm') {
-          setShipsNum((prev) => ({ ...prev, m: prev.m - 1 }))
-        } else if (selectedShip === 'l') {
-          setShipsNum((prev) => ({ ...prev, l: prev.l - 1 }))
-        } else if (selectedShip === 'xl') {
-          setShipsNum((prev) => ({ ...prev, xl: prev.xl - 1 }))
+        const newShipCoord = {
+          x: String.fromCharCode(65 + colIndex),
+          y: rowIndex + 1,
+          size: shipLength,
+          direction: selectedShipPosition,
         }
 
-        setSelectedShip(null)
+        setGrid(() => newGrid)
+        setShipsCoord((prev) => [...prev, newShipCoord])
+        setShipsNum((prev) => ({ ...prev, [selectedShip]: prev[selectedShip] - 1 }))
+        setSelectedShip(() => null)
 
         setStateHistory((prev) => [
           ...prev,
           {
-            grid: newGrid,
+            grid: [...grid],
             shipsCoord: [...shipsCoord],
             shipsNum: { ...shipsNum },
             areAllShipsPlaced: { ...areAllShipsPlaced },
@@ -171,7 +159,7 @@ export const useGrid = () => {
 
   const handleRevert = useCallback(() => {
     if (stateHistory.length > 1) {
-      const lastState = stateHistory[stateHistory.length - 2]
+      const lastState = stateHistory[stateHistory.length - 1]
       setGrid(lastState.grid)
       setShipsCoord(lastState.shipsCoord)
       setShipsNum(lastState.shipsNum)
