@@ -10,6 +10,7 @@ import useCanPlayGame from '@/hooks/useCanPlayGame'
 import useCanStartMapConfig from '@/hooks/useCanStartMapConfig'
 import useIsGameJoinable from '@/hooks/useIsGameJoinable'
 import useIsWaitingForEnemyMapConfig from '@/hooks/useIsWaitingForEnemyMapConfig'
+import useWinner from '@/hooks/useWinner'
 import { palette } from '@/theme'
 
 function GameScreen() {
@@ -23,6 +24,7 @@ function GameScreen() {
   const { canStartMapConfig } = useCanStartMapConfig(game)
   const { canPlayGame } = useCanPlayGame(game)
   const { isWaitingForEnemyMapConfig } = useIsWaitingForEnemyMapConfig(game)
+  const { isGameFinished, amWinner, winMessage, lossMessage } = useWinner(game)
 
   if (isLoading) {
     return (
@@ -36,6 +38,16 @@ function GameScreen() {
     <View style={styles.screenContainer}>
       <Text style={styles.text}>{game?.id}</Text>
       <Label status={game?.status} />
+      {isGameFinished &&
+        (amWinner ? (
+          <Text style={{ color: palette.green, fontWeight: 'bold', fontSize: 14 }}>
+            {winMessage}
+          </Text>
+        ) : (
+          <Text style={{ color: palette.red, fontWeight: 'bold', fontSize: 14 }}>
+            {lossMessage}
+          </Text>
+        ))}
       <Text>{game?.player1.email}</Text>
       <Text>{game?.player2?.email}</Text>
       {isGameJoinable && (
@@ -61,7 +73,6 @@ function GameScreen() {
           Waiting for enemy to configure map...
         </Text>
       )}
-      {/* TODO: treat finished case: better luck next time / well done */}
     </View>
   )
 }

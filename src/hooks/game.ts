@@ -18,9 +18,9 @@ export const useCreateGame = () => {
   const queryClient = useQueryClient()
 
   return useQuery('createGame', createGame, {
-    onSuccess: () => {
+    onSuccess: async () => {
       showNotification(EToastType.SUCCESS, 'Game created')
-      queryClient.invalidateQueries('listGames')
+      await queryClient.invalidateQueries('listGames')
     },
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)
@@ -41,10 +41,10 @@ export const useGetGame = (id: string, refetchInterval: boolean) => {
 export const useJoinGame = (id: string) => {
   const queryClient = useQueryClient()
   return useMutation(['joinGame', id], () => joinGame(id), {
-    onSuccess: () => {
+    onSuccess: async () => {
       showNotification(EToastType.SUCCESS, 'Game joined')
-      queryClient.invalidateQueries('listGames')
-      queryClient.invalidateQueries(['getGame', id])
+      await queryClient.invalidateQueries('listGames')
+      await queryClient.invalidateQueries(['getGame', id])
     },
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)
@@ -56,10 +56,10 @@ export const useSendMap = (id: string) => {
   const router = useRouter()
   const queryClient = useQueryClient()
   return useMutation(['sendMap', id], (payload: { ships: TShip[] }) => sendMap(id, payload), {
-    onSuccess: () => {
+    onSuccess: async () => {
       showNotification(EToastType.SUCCESS, 'Map sent successfully')
       router.replace(`(app)/game/${id}`)
-      queryClient.invalidateQueries(['getGame', id])
+      await queryClient.invalidateQueries(['getGame', id])
     },
     onError: (error: AxiosError) => {
       showNotification(EToastType.ERROR, error.message)
