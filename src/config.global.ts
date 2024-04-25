@@ -1,4 +1,4 @@
-export const BACKEND_URL = 'https://malamute-enabled-yak.ngrok-free.app'
+export const BACKEND_URL = 'http://163.172.177.98:8081'
 
 export const apiConfig = {
   auth: {
